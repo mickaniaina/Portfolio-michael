@@ -517,5 +517,128 @@
 </section>
 
 <div class="divider"></div>
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">// 04</span>
+      <h2 class="sec-title">Contact</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="contact-layout">
+      <div class="reveal">
+        <div class="contact-big">Travaillons<br><span>ensemble.</span></div>
+        <p class="contact-sub">Une idée, une collaboration ou juste envie d'échanger sur le dev web ? Je suis toujours disponible pour une bonne conversation technique.</p>
+        <a href="mailto:michael@example.com" class="btn-primary" style="display: inline-flex;">
+          M'écrire un message
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="contact-links reveal">
+        <a href="mailto:michael@example.com" class="cl">
+          <div class="cl-left"><span class="cl-icon">✉</span><div><div>E-mail</div><div class="cl-sub"> razafinjatovoavotriniainamickael@gmail.com</div></div></div>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="https://github.com/" target="_blank" class="cl">
+          <div class="cl-left"><span class="cl-icon">🐙</span><div><div>GitHub</div><div class="cl-sub"> mickaniaina</div></div></div>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="https://linkedin.com/" target="_blank" class="cl">
+          <div class="cl-left"><span class="cl-icon">🔗</span><div><div>Telephone</div><div class="cl-sub">+261 34  48 610 25</div></div></div>
+          <span class="cl-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-in">
+    <span class="foot-l">© 2025 Michael — Tous droits réservés</span>
+    <span class="foot-r">Conçu &amp; codé par Michael_</span>
+  </div>
+</footer>
+
+<script>
+  /* ── CURSOR ── */
+  const cur = document.getElementById('cur');
+  const curr = document.getElementById('curr');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  });
+  (function loop() {
+    rx += (mx - rx) * .1; ry += (my - ry) * .1;
+    curr.style.left = rx + 'px'; curr.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  /* ── SKILLS ── */
+  const skills = [
+    { name: 'HTML',       pct: 78 },
+    { name: 'CSS',        pct: 74 },
+    { name: 'JavaScript', pct: 63 },
+    { name: 'Python',     pct: 57 },
+    { name: 'Git',        pct: 50 },
+    { name: 'CLI / Bash', pct: 42 },
+  ];
+
+  const list = document.getElementById('skillList');
+  skills.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'reveal';
+    d.innerHTML = `
+      <div class="sk-top">
+        <span class="sk-name">${s.name}</span>
+        <span class="sk-pct">${s.pct}%</span>
+      </div>
+      <div class="sk-track"><div class="sk-fill" data-level="${s.pct}"></div></div>`;
+    d.style.marginBottom = '24px';
+    list.appendChild(d);
+  });
+
+  /* ── SCROLL REVEAL + SKILL BARS ── */
+  let barsLoaded = false;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('visible');
+        if (!barsLoaded && en.target.closest('#competences')) {
+          barsLoaded = true;
+          setTimeout(() => {
+            document.querySelectorAll('.sk-fill').forEach(b => b.style.width = b.dataset.level + '%');
+          }, 150);
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* ── NAV ACTIVE ── */
+  const navAs = document.querySelectorAll('.nav-links a');
+  new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting)
+        navAs.forEach(a => {
+          const on = a.getAttribute('href') === '#' + en.target.id;
+          a.style.color = on ? 'var(--blue)' : '';
+          a.style.textShadow = on ? '0 0 10px var(--blue)' : '';
+        });
+    });
+  }, { threshold: 0.45 }).observe === undefined || (() => {})();
+
+  const navObs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting)
+        navAs.forEach(a => {
+          const on = a.getAttribute('href') === '#' + en.target.id;
+          a.style.color = on ? 'var(--blue)' : '';
+          a.style.textShadow = on ? '0 0 10px var(--blue)' : '';
+        });
+    });
+  }, { threshold: 0.45 });
+  document.querySelectorAll('section[id]').forEach(s => navObs.observe(s));
+</script>
 </body>
 </html>
